@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Aplicacion de Servidor. Proyecto Logger",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ATAOYO",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "datetime": "0.0.3",
+    "express": "^4.16.4",
+    "node-dht-sensor": "0.0.34",
+    "onoff": "^3.2.2",
+    "path": "^0.12.7",
+    "serialport": "^7.0.2",
+    "serve-index": "^1.9.1"
+  }
+}

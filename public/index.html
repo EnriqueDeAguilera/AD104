@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--The stylesheet is added here. We haven't made it yet, so don't worry if you get an error at this point-->
+  <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+  <!--
+    This is our "Title" element. It will occupy the entire top band of our application
+  -->
+
+  <header class="cabecera">
+<img src="logo.jpg" alt="Logo" width="100" height="60">
+    Monitorización de cargas
+
+</header>
+
+  <!--
+    We make a container structure to encapsulate our temperature and humidity displays
+  -->
+  <div class="container">
+
+      <!--
+      Here, we define the structure of each display
+    -->
+    <div class="temperature">
+      <!--
+        Add subsections for the title, value, and unit.
+        We give each section a class name, because we want to style each one differently (give a larger size to value as opposed to title and unit)
+      -->
+      <p class="title">Temp.</p>
+      <p class="value" id="temperature-display">Loading... </p>
+      <p class="unit" >°C</p>
+    </div>
+
+    <!--
+      The humidity display has a similar structure to the temperature display
+    -->
+    <div class="humidity">
+      <p class="title">HR</p>
+      <p class="value" id="humidity-display">Loading...</p>
+      <p class="unit" >%</p>
+    </div>
+
+    <div class="fecha">
+      <p class="title">Fecha/Hora actual</p>
+      <p class="value" id="fecha-display">Loading...</p>
+    </div>
+
+    <div class="estadoAD104">
+      <p class="title">Estado DAQ</p>
+      <p class="value" id="estadomedida-display">Loading...</p>
+      <p class="unit" id="periodo-display" >Loading</p>
+      <p class="unit" id="siguiente-display" >Loading</p>
+    </div>
+
+    <div class="estadoModem">
+      <p class="title">Estado Modem</p>
+      <p class="unit" id="horamodema-display" >Loading</p>
+      <p class="unit" id="horamodemp-display" >Loading</p>
+      <p class="value" id="estadomodem-display">Loading...</p>
+      <p class="value" id="habilitadomodem-display">Loading...</p>
+    </div>
+
+
+
+  </div>
+
+</div>
+
+
+ <!--
+*********************************************************************************
+  CONTENEDOR DISPLAYS CARGA. SEGUNDA LINEA DISPLAY
+*********************************************************************************
+ -->
+ <div class="container1">
+
+
+   <div class="ad104-1">
+     <!--
+       Add subsections for the title, value, and unit.
+       We give each section a class name, because we want to style each one differently (give a larger size to value as opposed to title and unit)
+     -->
+     <p class="title">TRANSDUCTOR 1</p>
+     <p class="value" id="load-display1">Loading... </p>
+     <p class="unit" >kN</p>
+   </div>
+
+   <!--
+     Here, we define the structure of each display
+   -->
+   <div class="ad104-2">
+     <!--
+       Add subsections for the title, value, and unit.
+       We give each section a class name, because we want to style each one differently (give a larger size to value as opposed to title and unit)
+     -->
+     <p class="title">TRANSDUCTOR 2</p>
+     <p class="value" id="load-display2">Loading... </p>
+     <p class="unit" >kN</p>
+   </div>
+
+   <!--
+     The humidity display has a similar structure to the temperature display
+   -->
+   <div class="ad104-3">
+     <p class="title">TRANSDUCTOR 3</p>
+     <p class="value" id="load-display3">Loading...</p>
+     <p class="unit" >kN</p>
+   </div>
+
+   <!--
+     The humidity display has a similar structure to the temperature display
+   -->
+   <div class="ad104-4">
+     <p class="title">TRANSDUCTOR 4</p>
+     <p class="value" id="load-display4">Loading...</p>
+     <p class="unit" >kN</p>
+   </div>
+
+ </div>
+<!--
+FIN DE SEGUNDA LINEA DE DATOS
+-->
+
+<!--
+*********************************************************************************
+ Menu acciones. TERCERA LINEA DISPLAY
+*********************************************************************************
+-->
+
+
+
+
+<div class="container3">
+
+   <div class="formPeriodo">
+  <form method="post" action="/daq">
+    <!--  <input type="text" name="ad104[periodo]"> --->
+    <!--  <input type="text" name="user[email]"> --->
+    <!-- <input type="range" name="ad104[periodo]" min="0" max="3600"> --->
+    <label class="label_barra" for="ad104[periodo]">Periodo muestreo (segundos)</label>
+    <input class="input_datos" type="number" name="ad104[periodo]" min="0" max="3600" step="10" value="60">
+    <input class="boton_submit" type="submit" value="Actualizar" style="font-weight:bold">
+  </form>
+  </div>
+
+  <div class="formModem">
+
+ <form method="post" action="/modem">
+
+
+     <label class="label_barra" for="modem[horaa]">Hora Arranque</label>
+     <input class="input_datos" type="time" name="modem[horaa]" value="12:00">
+
+     <label class="label_barra" for="modem[horap]">Hora Parada</label>
+     <input class="input_datos" type="time" name="modem[horap]" value="12:00">
+
+     <label class="label_barra" for="modem[habilitado]">Habilitado</label>
+     <input type="checkbox" name="modem[habilitado]" value="true">
+     <input class="boton_submit" type="submit" value="Actualizar" style="font-weight:bold">
+
+ </form>
+ </div>
+
+
+</div>
+
+<div class="container2">
+
+    <!--<button type='button' OnClick="location.href=/ftp"><b>Configuración Samplerate</b></button>
+-->
+
+    <input type="button" value="Descarga de datos" name="B4" OnClick="location.href='/ftp'" style="font-weight:bold">
+    <input type="button" value="Enciende" name="B4" OnClick="enciendeAD104()" style="font-weight:bold">
+    <input type="button" value="Apaga" name="B4" OnClick="apagaAD104()" style="font-weight:bold">
+
+
+</div>
+
+
+
+<!--
+FIN DE SEGUNDA LINEA DE DATOS
+-->
+
+
+
+  <script src="script.js"></script>
+</body>
+
+</html>

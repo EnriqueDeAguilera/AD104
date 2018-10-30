@@ -1,0 +1,61 @@
+const getSensorReadings = require('./get-sensor-readings')
+const getAD104Readings = require('./AD104GetReadings')
+const getDateTime = require('./datetime')
+const gpioInterface = require('rpi-gpio')
+
+/*
+Instantiate the cache. In this case its a simple variable stored in local memory
+*/
+const cache = {
+  temperature: null,
+  humidity: null,
+  ad104Value:null
+}
+
+/*
+Run a function to get the sensor readings every 2 seconds (the same sampling rate as our sensor)
+*/
+
+//----------------------------------------------------------------------------
+// Lectura Sensores Humedad y Temperatura
+//----------------------------------------------------------------------------
+setInterval(() => {
+  getSensorReadings((err, temperature, humidity) => {
+
+
+
+
+    if (err)  {
+      return console.error(err)
+              }
+    /*
+    Set the values of the cache on receiving new readings
+    */
+    cache.temperature = temperature
+    cache.humidity = humidity
+
+//  console.log('temp: ' + temperature.toFixed(2) + 'ºC, ' + 'humidity: ' + humidity.toFixed(2) + '%')
+  })
+}, 2000)
+
+
+//----------------------------------------------------------------------------
+// Lectura intervalo AD104
+//----------------------------------------------------------------------------
+
+setInterval(() => {
+
+getAD104Readings((data)=>
+{cache.ad104Value = data;})
+
+
+},300)
+
+
+
+/*
+The functions that we expose only return the cached values, and don't make a call to the sensor interface everytime
+*/
+module.exports.getTemperature = () => cache.temperature
+module.exports.getHumidity = () => cache.humidity
+module.exports.getAD104 = () => cache.ad104Value
